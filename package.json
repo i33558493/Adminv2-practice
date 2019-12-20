@@ -2,5 +2,7 @@
   "name": "Adminv2-practice",
   "version": "1.0.0",
   "main": "index.js",
+  "repository": "git@github.com:i33558493/Adminv2-practice.git",
+  "author": "LaiCanwen <laicanwen08@hotmail.com>",
   "license": "MIT"
 }
