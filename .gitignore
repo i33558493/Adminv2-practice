@@ -1,0 +1,6 @@
+# webbpack
+node_modules
+#编译输出文件夹
+dist
+#日志
+*.log
