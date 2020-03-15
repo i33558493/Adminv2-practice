@@ -11,6 +11,12 @@ module.exports = {
     filename: 'js/app.js',
     publicPath: '/dist/' //默认根目录，改指定为dist
   },
+  resolve: {
+    alias : {
+      page : path.resolve(__dirname, 'src/page'),
+      component : path.resolve(__dirname, 'src/component')
+    }
+  },
   module: {
     rules: [
       //react(jsx)语法
@@ -89,6 +95,9 @@ module.exports = {
   ],
   devServer: {
     // contentBase: './dist'
-    port: 8086
+    port: 8086,
+    historyApiFallback: {
+      index: '/dist/index.html'
+    }
   }
 };
