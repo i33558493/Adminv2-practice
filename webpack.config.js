@@ -14,12 +14,14 @@ module.exports = {
   resolve: {
     alias : {
       page : path.resolve(__dirname, 'src/page'),
-      component : path.resolve(__dirname, 'src/component')
+      component : path.resolve(__dirname, 'src/component'),
+      util : path.resolve(__dirname, 'src/util'),
+      service : path.resolve(__dirname, 'src/service')
     }
   },
   module: {
     rules: [
-      //react(jsx)语法
+      //react (jsx) 语法
       {
         test: /\.m?jsx$/,
         exclude: /(node_modules)/,
@@ -30,7 +32,7 @@ module.exports = {
           }
         }
       },
-      //css文件
+      //css 文件
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
@@ -38,7 +40,7 @@ module.exports = {
           use: "css-loader"
         })
       },
-      //sass文件
+      //sass 文件
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
@@ -99,6 +101,16 @@ module.exports = {
     port: 8086,
     historyApiFallback: {
       index: '/dist/index.html'
+    },
+    proxy : {
+      '/manage' : {
+        target : 'http://admintest.happymmall.com/',
+        changeOrigin : true
+      },
+      '/user/logout.do' : {
+        target : 'http://admintest.happymmall.com/',
+        changeOrigin : true
+      }
     }
   }
 };

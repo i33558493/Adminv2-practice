@@ -4,3 +4,4 @@ node_modules
 dist
 #日志
 *.log
+.command
