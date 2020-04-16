@@ -8,7 +8,7 @@ class MUtil {
                 url : param.url || '',
                 dataType : param.dataType || 'json',
                 data : param.data || null,
-                success(res){
+                success :  res => {
                     //数据请求成功
                     if(0 === res.status){
                         //KNOW  && 操作符：前一个条件为真则执行后面的·语句
@@ -26,7 +26,7 @@ class MUtil {
                         reject(res.msg || res.data);
                     }
                 },
-                error(err){
+                error: err => {
                     //错误状态
                     // throw err.status;
                     reject(err.status);
@@ -45,7 +45,6 @@ class MUtil {
         let queryString = window.location.search.split('?')[1] || '';
         let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)' );
         let result = queryString.match(reg);
-        console.log(result);
         //match 方法返回一个 Array，如果未找到匹配则为 null
         //无结果本方法返回 null
         return result ? encodeURIComponent(result[2]) : null;

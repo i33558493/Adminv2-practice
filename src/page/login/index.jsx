@@ -14,6 +14,7 @@ class Login extends React.Component {
             username: '',
             password: '',
             //跳转地址指向登录前页面
+            //TODO 功能出错
             redirect: _mm.getUrlParam('redirect') || '/'
         }
         this.onInputChange = this.onInputChange.bind(this);

@@ -5,3 +5,4 @@ dist
 #日志
 *.log
 .command
+yarn.lock

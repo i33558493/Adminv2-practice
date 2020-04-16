@@ -8,6 +8,7 @@ import Layout from 'component/layout/index.jsx';
 //页面
 import Home from 'page/home/index.jsx' ;
 import ErrorPage from 'page/error/index.jsx' ;
+import UserPage from 'page/user/index.jsx' ;
 import Login from 'page/login/index.jsx' ;
 
 class App extends React.Component {
@@ -18,6 +19,8 @@ class App extends React.Component {
                 <Switch>
                     {/* 首页的路由 */}
                     <Route exact path="/" component={Home} />
+                    <Route path="/user/index" component={UserPage} />
+                    <Redirect from="/user" to="/user/index" />
                     <Route component={ErrorPage} />
                     {/* 指定任意路径都默认跳转到首页 */}
                     {/* <Redirect from="*" to="/" /> */}
@@ -27,9 +30,8 @@ class App extends React.Component {
         return (
             <Router>
                 <Switch>
-                    {/* TODO 此处设置疑似在登录界面发出 ajax 请求时引发组件重绘 */}
+                    {/* ·WAR 此处设置疑似在登录界面发出 ajax 请求时引发组件重绘 */}
                     <Route path="/login" component={Login} />
-                    <Route path="/" render={ ( props ) => LayoutRouter } />
                     <Route path="/" render={ ( props ) => LayoutRouter } />
                 </Switch>
             </Router>
