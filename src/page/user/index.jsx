@@ -16,7 +16,7 @@ class UserPage extends React.Component {
         this.state = {
             list: [],
             pageNum: 1,
-            firstLoading : true
+            isFirstLoading : true
         }
     }
     componentDidMount() {
@@ -27,7 +27,7 @@ class UserPage extends React.Component {
             .then(res => {
                 this.setState(res , () => {
                     this.setState({
-                        firstLoading : false
+                        isFirstLoading : false
                     })
                 })
             }, (errMsg => {
@@ -57,7 +57,7 @@ class UserPage extends React.Component {
         let listError = (
             <tr>
                 <th className="text-center" colSpan="5">
-                    {this.state.firstLoading ? '正在加载中~' : '没有找到相应的结果！'}
+                    {this.state.isFirstLoading ? '正在加载中~' : '没有找到相应的结果！'}
                 </th>
             </tr>
         );

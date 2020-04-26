@@ -53,6 +53,10 @@ class MUtil {
     errorTips(errMsg){
         alert(errMsg || '好像哪里不对了~');
     }
+    //成功提示
+    successMsgTips(successMsg){
+        alert(successMsg || '操作成功！');
+    }
     //本地存储
     setStorage(name,data){
         //KNOW 本地存储的键对值总以 string 形式存在

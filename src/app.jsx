@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 //KNOW 此处引入不同 Router 组件代表不同路由模式——BrowserRouter：H5路由，HashRouter：哈希路由
 //KNOW 哈希路由地址栏会用 # 号隔开，特点是兼容性较好，H5路由地址栏用斜杆隔开，但上线时需要在后端设置以便更好访问
-import { BrowserRouter as Router, Route, Redirect, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
 import Layout from 'component/layout/index.jsx';
 //页面
 import Home from 'page/home/index.jsx' ;
 import ErrorPage from 'page/error/index.jsx' ;
 import UserPage from 'page/user/index.jsx' ;
+import ProductRouter from 'page/product/router.jsx' ;
 import Login from 'page/login/index.jsx' ;
 
 class App extends React.Component {
@@ -20,7 +21,9 @@ class App extends React.Component {
                     {/* 首页的路由 */}
                     <Route exact path="/" component={Home} />
                     <Route path="/user/index" component={UserPage} />
-                    <Redirect from="/user" to="/user/index" />
+                    <Route path="/product" component={ProductRouter} />
+                    <Route path="/product-category" component={ProductRouter} />
+                    <Redirect exact from="/user" to="/user/index" />
                     <Route component={ErrorPage} />
                     {/* 指定任意路径都默认跳转到首页 */}
                     {/* <Redirect from="*" to="/" /> */}
