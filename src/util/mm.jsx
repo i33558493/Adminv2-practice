@@ -37,6 +37,7 @@ class MUtil {
     //跳转登录
     doLogin(){
         //传入登录前页面地址参数以便跳转登录时取值
+        //KNOW  encodeURIComponent 方法可以对 URI 保留字符进行转码，以免服务器和浏览器对 URI 参数进行读取时产生歧义
         window.location.href = '/login?redirect=' + encodeURIComponent(window.location.pathname);
     }
     //跳转登录
@@ -47,7 +48,8 @@ class MUtil {
         let result = queryString.match(reg);
         //match 方法返回一个 Array，如果未找到匹配则为 null
         //无结果本方法返回 null
-        return result ? encodeURIComponent(result[2]) : null;
+        //KNOW 注意此处 decodeURIComponent 为解码方法
+        return result ? decodeURIComponent(result[2]) : null;
     }
     //错误提示
     errorTips(errMsg){

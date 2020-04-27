@@ -4,19 +4,13 @@ const _mm = new Mutil();
 
 class Product {
     getProductList(listPram) {
-        //TODO 完成方法改造
         let url = '', data = {};
+        data.pageNum = listPram.pageNum;
         if (listPram.listType === 'search') {
             url = '/manage/product/search.do';
-            data = {
-                [listPram.searchType]: listPram.searchKeyword,
-                pageNum: listPram.pageNum
-            };
+            data[listPram.searchType] = listPram.searchKeyword;
         } else if (listPram.listType === 'list') {
             url = '/manage/product/list.do';
-            data = {
-                pageNum: listPram.pageNum
-            };
         }
         //注意使用 return 返回 promise 对象
         return _mm.request({

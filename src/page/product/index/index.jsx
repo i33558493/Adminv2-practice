@@ -77,7 +77,7 @@ class ProductList extends React.Component {
             pageNum: 1,
             searchType: searchType,
             searchKeyword: searchKeyword
-        },() => {
+        }, () => {
             this.loadProductList();
         });
     }
@@ -130,7 +130,14 @@ class ProductList extends React.Component {
         ]
         return (
             <div className="container" id="page-wrapper">
-                <PageTitle title="商品列表" />
+                <PageTitle className="page-header" title="商品列表" >
+                    <div className="page-header--right">
+                        <Link to="/product/save" className="btn btn-primary page-header--right">
+                            <i className="fa fa-plus"></i>
+                            <span>添加商品</span>
+                        </Link>
+                    </div>
+                </PageTitle>
                 <ListSearch
                     onSearch={(searchType, searchKeyword) => this.onSearchProduct(searchType, searchKeyword)} />
                 <div className="row">
