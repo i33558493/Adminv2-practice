@@ -3,6 +3,7 @@ import Mutil from 'util/mm.jsx';
 const _mm = new Mutil();
 
 class Product {
+    //获取商品列表
     getProductList(listPram) {
         let url = '', data = {};
         data.pageNum = listPram.pageNum;
@@ -19,6 +20,7 @@ class Product {
             data: data
         });
     }
+    //更改商品状态
     onSetProductStatus(productId, status) {
         return _mm.request({
             type: 'post',
@@ -26,6 +28,21 @@ class Product {
             data: {
                 productId: productId,
                 status: status
+            }
+        });
+    }
+
+    /*
+    * 品类相关
+    */
+
+    //获取品类列表
+    getCategoryList(parentCategoryId) {
+        return _mm.request({
+            type: 'post',
+            url: '/manage/category/get_category.do',
+            data: {
+                categoryId: parentCategoryId || 0
             }
         });
     }
