@@ -54,9 +54,45 @@ class ProductSave extends React.Component {
             subImages: subImages
         });
     }
+    //保存详情变化
+    onRichTextChange(newRichText) {
+        this.setState({
+            detail: newRichText
+        });
+    }
+    //处理上传图片参数
+    getSubImageString() {
+        let subImageString = '';
+        //拼接字符串
+        this.state.subImages.map(
+            (subImage, index) => {
+                subImageString = subImageString.concat(subImage.uri, ',');                
+            }
+        );
+        //去除最后一个逗号
+        subImageString = subImageString.substring(0, subImageString.length - 1)
+        return subImageString;
+    }
     //提交
     onSubmit(e) {
+        let param = {
+            categoryId: this.state.categoryId,
+            name: this.state.name,
+            subtitle: this.state.subtitle,
+            subImages: this.getSubImageString(),
+            detail: this.state.detail,
+            price: this.state.price,
+            stock: this.state.stock,
+            status: 1
+        }
         console.log(this.state);
+        _product.saveProduct(param).then(
+            (res) => {
+                _mm.successTips(res.data);
+                //TODO 跳转页面
+            },
+            (errMsg) => { _mm.errorTips(errMsg) }
+        );
     }
     render() {
         return (
@@ -118,7 +154,9 @@ class ProductSave extends React.Component {
                     </div>
                     <div className="form-group">
                         <label className="col-md-2 control-label">商品详情</label>
-                        <RichEditor className="col-md-10"/>
+                        <div className="col-md-10">
+                            <RichEditor onRichTextChange={(newRichText) => this.onRichTextChange(newRichText)} />
+                        </div>
                     </div>
                     <div className="form-group">
                         <div className="col-md-offset-2 col-md-10">
