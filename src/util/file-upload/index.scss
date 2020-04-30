@@ -1,0 +1,32 @@
+$imgHeight: 80px;
+
+.fileUploader-wrap--img {
+    display: inline-block;
+    position: relative;
+    width: $imgHeight;
+    height: $imgHeight;
+    margin-bottom: 10px;
+    .fileUploader-img {
+        width: 100%;
+        height: 100%;
+    }
+    .fa {
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: $imgHeight;
+        height: $imgHeight;
+        line-height: $imgHeight;
+        text-align: center;
+        font-size: 40px;
+        font-weight: bolder;
+        color: #555;
+        opacity: .8;
+    }
+    &:hover .fa {
+        display: inline-block;
+    }
+}

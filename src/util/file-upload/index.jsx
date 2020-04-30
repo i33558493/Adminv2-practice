@@ -3,6 +3,8 @@ import FileUpload from './file-upload.jsx';
 
 import Mutil from 'util/mm.jsx';
 
+import './index.scss';
+
 const _mm = new Mutil();
 
 class FileUploader extends React.Component {
@@ -21,7 +23,7 @@ class FileUploader extends React.Component {
             subImages: subImages
         });
         //返回图片信息到父组件
-
+        this.onSubImagesChange();
     }
     //图片上传失败
     onUploadFailed(err) {
@@ -30,18 +32,28 @@ class FileUploader extends React.Component {
         let errMsg = typeof err === 'string' ? err : err.msg;
         _mm.errorTips(errMsg);
     }
-
-    //test
-    myConsole(e){
-
+    //删除图片
+    subImagesDelete(index) {
+        let subImages = this.state.subImages;
+        subImages.splice(index, 1);
+        this.setState({
+            subImages: subImages
+        });
+    }
+    //返回上传图片到父组件
+    onSubImagesChange() {
+        //验证 props 传入方法类型正确否
+        if (typeof this.props.onSubImagesChange === 'function') {
+            this.props.onSubImagesChange(this.state.subImages);
+        }
     }
     render() {
         //图片预览
         let subImg = this.state.subImages.map((subImage, index) => {
             return (
-                <div className="fileUploader-warp--img">
+                <div className="fileUploader-wrap--img" key={index}>
                     <img src={subImage.url} alt={`图${index}`} className="fileUploader-img" />
-                    <i className="fa fa-times"></i>
+                    <i className="fa fa-times"onClick={(e) => this.subImagesDelete(index)}></i>
                 </div>
             )
         })
@@ -62,9 +74,8 @@ class FileUploader extends React.Component {
             <div className="col-md-5">
                 {subImg}
                 <FileUpload options={options} >
-                    <button ref="chooseAndUpload">上传图片</button>
+                    <button className="btn btn-default" ref="chooseAndUpload">上传图片</button>
                 </FileUpload >
-                <button onClick={(e) => this.myConsole(e)}>test</button>
             </div>
         )
     }

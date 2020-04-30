@@ -2,6 +2,7 @@ import React from 'react';
 import PageTitle from 'component/page-title/index.jsx';
 import CategorySelector from './category-selector.jsx';
 import FileUpload from 'util/file-upload/index.jsx';
+import RichEditor from 'util/rich-editor/index.jsx';
 
 import Mutil from 'util/mm.jsx';
 import Product from 'service/product-service.jsx';
@@ -47,17 +48,17 @@ class ProductSave extends React.Component {
             CategoryId: secondCategoryId
         });
     }
+    //保存上传图片状态
+    onSubImagesChange(subImages) {
+        this.setState({
+            subImages: subImages
+        });
+    }
     //提交
     onSubmit(e) {
         console.log(this.state);
     }
     render() {
-        var options = {
-            baseUrl: 'http://127.0.0.1',
-            param: {
-                fid: 0
-            }
-        }
         return (
             <div className="container" id="page-wrapper">
                 <PageTitle className="page-header" title="商品管理--添加商品" />
@@ -84,7 +85,9 @@ class ProductSave extends React.Component {
                         <label className="col-md-2 control-label">所属分类</label>
                         <div className="col-md-10">
                             <CategorySelector
-                                onCategoryChange={(firstCategoryId, secondCategoryId) => this.onCategoryChange(firstCategoryId, secondCategoryId)} />
+                                onCategoryChange={
+                                    (firstCategoryId, secondCategoryId) => this.onCategoryChange(firstCategoryId, secondCategoryId)
+                                } />
                         </div>
                     </div>
                     <div className="form-group">
@@ -111,13 +114,11 @@ class ProductSave extends React.Component {
                     </div>
                     <div className="form-group">
                         <label className="col-md-2 control-label">上传图片</label>
-                        <FileUpload/>
+                        <FileUpload onSubImagesChange={(subImages) => this.onSubImagesChange(subImages)} />
                     </div>
                     <div className="form-group">
                         <label className="col-md-2 control-label">商品详情</label>
-                        <div className="col-md-5">
-                            test
-                        </div>
+                        <RichEditor className="col-md-10"/>
                     </div>
                     <div className="form-group">
                         <div className="col-md-offset-2 col-md-10">
