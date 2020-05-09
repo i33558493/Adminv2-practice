@@ -18,7 +18,6 @@ class ProductSave extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: 0,
             categoryId: 0, //二级品类
             name: '',
             subtitle: '',
@@ -36,7 +35,7 @@ class ProductSave extends React.Component {
     //保存通用商品信息状态
     onProductInfoChange(e) {
         let name = e.target.name,
-            value = e.target.value;
+            value = e.target.value.trim();
         this.setState({
             [name]: value
         });
@@ -45,7 +44,7 @@ class ProductSave extends React.Component {
     onCategoryChange(firstCategoryId, secondCategoryId) {
         this.setState({
             parentCategoryId: firstCategoryId,
-            CategoryId: secondCategoryId
+            categoryId: secondCategoryId
         });
     }
     //保存上传图片状态
@@ -75,24 +74,40 @@ class ProductSave extends React.Component {
     }
     //提交
     onSubmit(e) {
-        let param = {
-            categoryId: this.state.categoryId,
+        //商品参数
+        let product = {
+            id: this.state.id,
             name: this.state.name,
             subtitle: this.state.subtitle,
             subImages: this.getSubImageString(),
             detail: this.state.detail,
-            price: this.state.price,
-            stock: this.state.stock,
-            status: 1
+            price: parseFloat(this.state.price),
+            stock: parseInt(this.state.stock),
+            status: 1,
+            categoryId: parseInt(this.state.categoryId),
+            parentCategoryId: parseInt(this.state.parentCategoryId)
         }
-        console.log(this.state);
-        _product.saveProduct(param).then(
-            (res) => {
-                _mm.successTips(res.data);
-                //TODO 跳转页面
-            },
-            (errMsg) => { _mm.errorTips(errMsg) }
-        );
+        //编辑状态下存在商品ID
+        if (this.state.id) {
+            product.id = this.state.id;
+        }
+        //验证商品表单 
+        let productCheckResult = _product.checkProduct(product);
+        //保存商品详情
+        if (productCheckResult.status) {
+            //校验通过
+            _product.saveProduct(product).then(
+                (res) => {
+                    _mm.successMsgTips(res.data);
+                    //跳转页面
+                    this.props.history.push('/product');
+                },
+                (errMsg) => { _mm.errorTips(errMsg) }
+            );
+        }
+        else {
+            _mm.errorTips(productCheckResult.msg);
+        }
     }
     render() {
         return (
