@@ -20,6 +20,16 @@ class Product {
             data: data
         });
     }
+    //获取商品详情
+    getProductDetail(productId) {
+        return _mm.request({
+            type: 'post',
+            url: '/manage/product/detail.do',
+            data: {
+                productId: productId
+            }
+        });
+    } 
     //更改商品状态
     onSetProductStatus(productId, status) {
         return _mm.request({

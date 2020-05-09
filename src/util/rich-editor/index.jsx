@@ -18,9 +18,9 @@ class RichEditor extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         //从父组件设置内容
-        if (typeof nextProps.defaultText === 'string' //类型校验
-            && this.props.defaultText !== nextProps.defaultText) { //变化校验
-            this.editor.setValue(this.props.defaultText); //对编辑器赋值
+        if (typeof nextProps.defaultDetail === 'string' //类型校验
+            && this.props.defaultDetail !== nextProps.defaultDetail) { //变化校验
+            this.editor.setValue(nextProps.defaultDetail); //对编辑器赋值
         }
     }
     //初始化富文本编辑器

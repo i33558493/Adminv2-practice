@@ -21,6 +21,28 @@ class CategorySelector extends React.Component {
     componentDidMount() {
         this.loadFirstCategoryList();
     }
+    componentWillReceiveProps(nextProps) {
+        //验证参数，若无变化不处理
+        if (this.props.categoryId === nextProps.categoryId && this.state.parentCategoryId === nextProps.parentCategoryId) {
+            return;
+        }
+        //若只有一级品类
+        if (nextProps.parentCategoryId === 0) {
+            this.setState({
+                firstCategoryId: nextProps.categoryId,
+                secondCategoryId: 0
+            });
+        }
+        else {
+            this.setState({
+                firstCategoryId: nextProps.parentCategoryId,
+                secondCategoryId: nextProps.categoryId
+            },
+                () => this.loadSecondCategoryList()
+            );
+        }
+    }
+
     //加载一级节点
     loadFirstCategoryList() {
         _product.getCategoryList('0').then((res) => {
@@ -66,7 +88,7 @@ class CategorySelector extends React.Component {
     //传递品类给父组件
     onPropsCategoryChange() {
         //判断 props 里的相关参数是否为方法
-        let isCategoryChangeable = typeof this.props.onCategoryChange ==='function' ? true : false;
+        let isCategoryChangeable = typeof this.props.onCategoryChange === 'function' ? true : false;
         //传递
         //如果有二级品类
         if (this.state.secondCategoryId) {
@@ -94,8 +116,8 @@ class CategorySelector extends React.Component {
                     }
                 </select>
                 {/* 如果二级品类没有获取列表，隐藏二级品类多选框 */}
-                <select className={`form-control category-select ${this.state.secondCategoryList.length ? 'show' : 'hidden'}`}
-                    value={this.secondCategoryId}
+                <select className={`form-control category-select ${this.state.secondCategoryId > 0 || this.state.secondCategoryList.length > 0 ? 'show' : 'hidden'}`}
+                    value={this.state.secondCategoryId}
                     onChange={(e) => this.onSecondCategoryChange(e)}>
                     <option value="">请选择二级品类</option>
                     {

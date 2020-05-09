@@ -18,6 +18,7 @@ class ProductSave extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.match.params.pid,
             categoryId: 0, //二级品类
             name: '',
             subtitle: '',
@@ -30,8 +31,31 @@ class ProductSave extends React.Component {
         }
     }
     componentDidMount() {
+        this.loadProduct();
     }
 
+    //当id不为空时代表为编辑页面，需要回填商品详情到表单
+    loadProduct() {
+        if (this.state.id) {
+            _product.getProductDetail(this.state.id).then((res) => {
+                //原参数 subImages 是使用 “ , ” 隔开的字符串，使用 split 方法转换成数组，并且过滤去除空元素
+                let Images = res.subImages.split(',').filter((subImage) => {
+                    return subImage === 'false' ? true : subImage && subImage.trim();
+                });
+                res.subImages = Images.map((image, index) => {
+                    return {
+                        uri: image,
+                        url: res.imageHost + image
+                    }
+                });
+                //方便富文本编辑器回填
+                res.defaultDetail = res.detail;
+                this.setState(res);
+            }, (errMsg) => {
+                _mm.errorTips(errMsg);
+            });
+        }
+    }
     //保存通用商品信息状态
     onProductInfoChange(e) {
         let name = e.target.name,
@@ -41,10 +65,10 @@ class ProductSave extends React.Component {
         });
     }
     //保存选择品类状态
-    onCategoryChange(firstCategoryId, secondCategoryId) {
+    onCategoryChange(parentCategoryId, categoryId) {
         this.setState({
-            parentCategoryId: firstCategoryId,
-            categoryId: secondCategoryId
+            parentCategoryId: parentCategoryId,
+            categoryId: categoryId
         });
     }
     //保存上传图片状态
@@ -65,7 +89,7 @@ class ProductSave extends React.Component {
         //拼接字符串
         this.state.subImages.map(
             (subImage, index) => {
-                subImageString = subImageString.concat(subImage.uri, ',');                
+                subImageString = subImageString.concat(subImage.uri, ',');
             }
         );
         //去除最后一个逗号
@@ -121,6 +145,7 @@ class ProductSave extends React.Component {
                                 className="form-control"
                                 placeholder="请输入商品名称"
                                 name="name"
+                                value={this.state.name}
                                 onChange={(e) => this.onProductInfoChange(e)} />
                         </div>
                     </div>
@@ -129,6 +154,7 @@ class ProductSave extends React.Component {
                         <div className="col-md-5">
                             <input type="text" className="form-control" placeholder="请输入商品描述"
                                 name="subtitle"
+                                value={this.state.subtitle}
                                 onChange={(e) => this.onProductInfoChange(e)} />
                         </div>
                     </div>
@@ -136,9 +162,10 @@ class ProductSave extends React.Component {
                         <label className="col-md-2 control-label">所属分类</label>
                         <div className="col-md-10">
                             <CategorySelector
-                                onCategoryChange={
-                                    (firstCategoryId, secondCategoryId) => this.onCategoryChange(firstCategoryId, secondCategoryId)
-                                } />
+                                onCategoryChange={(firstCategoryId, secondCategoryId) => this.onCategoryChange(firstCategoryId, secondCategoryId)}
+                                categoryId={this.state.categoryId}
+                                parentCategoryId={this.state.parentCategoryId}
+                            />
                         </div>
                     </div>
                     <div className="form-group">
@@ -147,6 +174,7 @@ class ProductSave extends React.Component {
                             <div className="input-group">
                                 <input type="text" className="form-control" placeholder="请输入商品价格"
                                     name="price"
+                                    value={this.state.price}
                                     onChange={(e) => this.onProductInfoChange(e)} />
                                 <span className="input-group-addon">元</span>
                             </div>
@@ -158,6 +186,7 @@ class ProductSave extends React.Component {
                             <div className="input-group">
                                 <input type="text" className="form-control" placeholder="请输入商品库存"
                                     name="stock"
+                                    value={this.state.stock}
                                     onChange={(e) => this.onProductInfoChange(e)} />
                                 <span className="input-group-addon">件</span>
                             </div>
@@ -165,12 +194,16 @@ class ProductSave extends React.Component {
                     </div>
                     <div className="form-group">
                         <label className="col-md-2 control-label">上传图片</label>
-                        <FileUpload onSubImagesChange={(subImages) => this.onSubImagesChange(subImages)} />
+                        <FileUpload
+                            onSubImagesChange={(subImages) => this.onSubImagesChange(subImages)}
+                            subImages={this.state.subImages} />
                     </div>
                     <div className="form-group">
                         <label className="col-md-2 control-label">商品详情</label>
                         <div className="col-md-10">
-                            <RichEditor onRichTextChange={(newRichText) => this.onRichTextChange(newRichText)} />
+                            <RichEditor
+                                onRichTextChange={(newRichText) => this.onRichTextChange(newRichText)}
+                                defaultDetail={this.state.defaultDetail} />
                         </div>
                     </div>
                     <div className="form-group">

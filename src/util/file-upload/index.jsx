@@ -14,6 +14,13 @@ class FileUploader extends React.Component {
             subImages: []
         }
     }
+    componentWillReceiveProps(nextProps) {
+        if (this.state.subImages !== nextProps.subImages) {
+            this.setState({
+                subImages: nextProps.subImages
+            });
+        }
+    }
     //图片上传成功
     onUploadSuccess(res) {
         //加载图片信息
