@@ -104,6 +104,7 @@ class CategorySelector extends React.Component {
         return (
             <div className="component-wrap">
                 <select className="form-control category-select"
+                    readOnly={this.props.readOnly}
                     value={this.state.firstCategoryId}
                     onChange={(e) => this.onFirstCategoryChange(e)}>
                     <option value="0">请选择一级品类</option>
@@ -116,7 +117,8 @@ class CategorySelector extends React.Component {
                     }
                 </select>
                 {/* 如果二级品类没有获取列表，隐藏二级品类多选框 */}
-                <select className={`form-control category-select ${this.state.secondCategoryId > 0 || this.state.secondCategoryList.length > 0 ? 'show' : 'hidden'}`}
+                <select className={`form-control category-select ${this.state.secondCategoryId > 0 || this.state.secondCategoryList.length > 0 ? 'show' : 'hidden'}`}                    
+                    readOnly={this.props.readOnly}
                     value={this.state.secondCategoryId}
                     onChange={(e) => this.onSecondCategoryChange(e)}>
                     <option value="">请选择二级品类</option>
