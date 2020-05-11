@@ -10,6 +10,7 @@ import Home from 'page/home/index.jsx' ;
 import ErrorPage from 'page/error/index.jsx' ;
 import UserPage from 'page/user/index.jsx' ;
 import ProductRouter from 'page/product/router.jsx' ;
+import OrderRouter from 'page/order/router.jsx' ;
 import Login from 'page/login/index.jsx' ;
 
 class App extends React.Component {
@@ -23,6 +24,7 @@ class App extends React.Component {
                     <Route path="/user/index" component={UserPage} />
                     <Route path="/product" component={ProductRouter} />
                     <Route path="/product-category" component={ProductRouter} />
+                    <Route path="/order" component={OrderRouter} />
                     <Redirect exact from="/user" to="/user/index" />
                     <Route component={ErrorPage} />
                     {/* 指定任意路径都默认跳转到首页 */}

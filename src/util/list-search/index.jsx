@@ -1,11 +1,11 @@
 import React from 'react';
-import './index-list-search.scss';
-//TODO 待添加状态和事件方法
+import './index.scss';
+
 class ListSearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchType: 'productId', //'productId' / 'productName'
+            searchType: this.props.searchTypes[0].value || '', 
             searchKeyword: ''
         }
     }
@@ -28,6 +28,9 @@ class ListSearch extends React.Component {
     }
 
     render() {
+        let selectOption = this.props.searchTypes.map((searchType, index) => {
+            return (<option value={searchType.value} key={index}>{searchType.name}</option> );
+        })
         return (
             <div className="row">
                 <div className="col-md-12 search-wrap">
@@ -36,8 +39,7 @@ class ListSearch extends React.Component {
                             <select className="form-control"
                                 name="searchType"
                                 onChange={(e) => this.onValueChange(e)}>
-                                <option value="productId">按商品ID查询</option>
-                                <option value="productName">按商品名称查询</option>
+                                {selectOption}
                             </select>
                         </div>
                         <div className="form-group">

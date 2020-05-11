@@ -5,8 +5,8 @@ import Pagination from 'util/pagination/index.jsx';
 
 import Mutil from 'util/mm.jsx';
 import Product from 'service/product-service.jsx';
-import TableList from '../../../util/table-list/index.jsx';
-import ListSearch from './index-list-search.jsx';
+import TableList from 'util/table-list/index.jsx';
+import ListSearch from 'util/list-search/index.jsx';
 
 import './index.scss';
 
@@ -82,6 +82,17 @@ class ProductList extends React.Component {
         });
     }
     render() {
+        //查询类型
+        let searchTypes = [
+            {
+                value: 'productId',
+                name: '按商品ID查询'
+            },
+            {
+                value: 'productName',
+                name: '按商品名称查询'
+            }
+        ];
         let listProduct =
             this.state.list.map((product, index) => {
                 return (
@@ -139,6 +150,7 @@ class ProductList extends React.Component {
                     </div>
                 </PageTitle>
                 <ListSearch
+                    searchTypes={searchTypes}
                     onSearch={(searchType, searchKeyword) => this.onSearchProduct(searchType, searchKeyword)} />
                 <div className="row">
                     <div className="table-wrap col-md-12">
