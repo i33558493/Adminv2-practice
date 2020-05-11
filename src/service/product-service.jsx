@@ -110,6 +110,28 @@ class Product {
             }
         });
     }
+    //品类重命名
+    setCategoryName(categoryId, categoryName) {
+        return _mm.request({
+            type: 'post',
+            url: '/manage/category/set_category_name.do',
+            data: {
+                categoryId: categoryId,
+                categoryName: categoryName
+            }
+        });
+    }
+    //新增品类
+    addCategory(parentId, categoryName) {
+        return _mm.request({
+            type: 'post',
+            url: '/manage/category/add_category.do',
+            data: {
+                parentId: parentId,
+                categoryName: categoryName
+            }
+        });
+    }
 }
 
 export default Product;
