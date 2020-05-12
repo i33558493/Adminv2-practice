@@ -12,6 +12,7 @@ import UserPage from 'page/user/index.jsx' ;
 import ProductRouter from 'page/product/router.jsx' ;
 import OrderRouter from 'page/order/router.jsx' ;
 import Login from 'page/login/index.jsx' ;
+import AboutPage from 'page/about/index.jsx' ;
 
 class App extends React.Component {
     render() {
@@ -22,6 +23,7 @@ class App extends React.Component {
                     {/* 首页的路由 */}
                     <Route exact path="/" component={Home} />
                     <Route path="/user/index" component={UserPage} />
+                    <Route path="/about" component={AboutPage} />
                     <Route path="/product" component={ProductRouter} />
                     <Route path="/product-category" component={ProductRouter} />
                     <Route path="/order" component={OrderRouter} />

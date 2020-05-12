@@ -50,6 +50,11 @@ let domMenu = (
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <NavLink exact activeClassName="active" to="/about"><i className="fa fa-question-circle-o"></i>
+                            <span>关于</span>
+                        </NavLink>
+                    </li>
                 </ul>
 
             </div>
