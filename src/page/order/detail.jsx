@@ -138,15 +138,18 @@ class ProductDetail extends React.Component {
                             <p className="form-control-static">{`￥${this.state.orderInfo.payment}`}</p>
                         </div>
                     </div>
-                </div>
-                <div className="table-wrap col-md-12">
-                    {//判断是否渲染
-                        this.state.orderInfo.orderItemVoList ?
-                            <TableList tableHeads={tableHeads}>
-                                {listProduct}
-                            </TableList>
-                            : null
-                    }
+                    <div className="form-group">
+                        <label className="col-md-2 control-label">商品列表</label>
+                        <div className="table-wrap col-md-10">
+                            {//判断是否渲染
+                                this.state.orderInfo.orderItemVoList ?
+                                    <TableList tableHeads={tableHeads}>
+                                        {listProduct}
+                                    </TableList>
+                                    : null
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         );
