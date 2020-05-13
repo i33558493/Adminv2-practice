@@ -13,7 +13,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/app.js',
-    publicPath: WEBPACK_ENV === 'dev' ? '/dist/' : '//s.laicanwen.cn/admin-v2-fe/dist/'//默认根目录，改指定为dist
+    publicPath: WEBPACK_ENV === 'dev' ? '/dist/' : '//s.laicanwen.cn/Adminv2-practice/dist/'//默认根目录，改指定为dist
   },
   resolve: {
     alias : {
