@@ -7,12 +7,13 @@
   "license": "MIT",
   "scripts": {
     "dev": "node_modules/.bin/webpack-dev-server",
-    "dist": "node_modules/.bin/webpack -p"
+    "dist": "WEBPACK_ENV=online node_modules/.bin/webpack -p",
+    "dist_win": "set WEBPACK_ENV=online&& .\\node_modules\\.bin\\webpack -p"
   },
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
-    "babel-preset-env": "1.6.1",
+    "babel-preset-env": "1.6.1", 
     "babel-preset-react": "6.24.1",
     "clean-webpack-plugin": "2.0.2",
     "css-loader": "0.28.8",

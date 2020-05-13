@@ -26,7 +26,7 @@ class About extends React.Component {
                             <dt>联系邮箱</dt>
                             <dd> 328925644@qq.com</dd>
                             <dt>联系电话：</dt>
-                            <dd>13420304474</dd>
+                            <dd>13129298428</dd>
                         </dl>
                     </div>
                 </div>

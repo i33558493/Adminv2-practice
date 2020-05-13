@@ -4,12 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+//process 是 node 的全局变量，process.env 包含着关于本计算机系统环境的信息
+let WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
+console.log(WEBPACK_ENV);
+
 module.exports = {
   entry: './src/app.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/app.js',
-    publicPath: '/dist/' //默认根目录，改指定为dist
+    publicPath: WEBPACK_ENV === 'dev' ? '/dist/' : '//s.laicanwen.cn/admin-v2-fe/dist/'//默认根目录，改指定为dist
   },
   resolve: {
     alias : {
