@@ -1,3 +1,5 @@
 # Adminv2-practice
 A practice of React  
-[Demo](http://124.70.137.142/)
+[Demo](http://124.70.137.142/)  
+username: admin
+password: admin 
